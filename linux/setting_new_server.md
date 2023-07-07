@@ -43,20 +43,41 @@ sudo ssh-copy-id <user_name>@<server_id>
 
 ## Первичная настройка
 
-Коннектимся на сервер под ssh ```ssh <user_name>@<server_ip>```
+Коннектимся на сервер под ssh 
+```
+ssh <user_name>@<server_ip>
+```
 
 
-Обновляем пакеты ```sudo apt-get update``` и устанавливаем начальные пакеты для удобной работы ```sudo apt-get install -y vim mosh tmux htop git supervisor```
+Обновляем пакеты 
+```
+sudo apt-get update
+```
+ и устанавливаем начальные пакеты для удобной работы 
+```
+sudo apt-get install -y vim mosh tmux htop git supervisor
+```
 
-Если нам нужно будет подключаться к git - генерируем ssh ключи ```ssh-keygen``` и добавляем публичный ключь на GitHub(ну, или туда, откуда собираемся клонировать проект)
+Если нам нужно будет подключаться к git - генерируем ssh ключи 
+```
+ssh-keygen
+``` 
+и добавляем публичный ключь на GitHub(ну, или туда, откуда собираемся клонировать проект)
 
 Заполняем конфиги для Git 
-```git config --global user.name '<user_name>'```  и ```git config --global user.email '<user_email>'```
+``
+git config --global user.name '<user_name>
+git config --global user.email '<user_email>
+'```
 
 
 Теперь нам нужно отключить возможность коннекта к серверу с рута и по логину/паролю. То есть оставить только возможность подключаться только по ssh-ключу и определенным пользователям
 
-Открываем файл с конфигом ```sudo vim /etc/ssh/sshd_config``` и прописываем в конец файла:
+Открываем файл с конфигом
+```
+sudo vim /etc/ssh/sshd_config
+```
+ и прописываем в конец файла:
 ```
 AllowUsers <user_name>
 PermitRootLogin no
