@@ -41,5 +41,17 @@ sudo ssh-copy-id <user_name>@<server_id>
 ```git config --global user.name 'user_name'```  и ```git config --global user.email 'user_email'```
 
 
+Теперь нам нужно отключить возможность коннекта к серверу с рута и по логину/паролю. То есть оставить только возможность подключаться только по ssh-ключу и определенным пользователям
+
+Открываем файл с конфигом ```sudo vim /etc/ssh/sshd_config``` и прописываем в конец файла:
+```
+AllowUsers <user_name>
+PermitRootLogin no
+PasswordAuthentication no
+```
+Если данные параметры ужеиспользуются в конфиге - заменить их на вышеперечисленные
+
+
+
 
 
