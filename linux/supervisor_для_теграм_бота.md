@@ -49,6 +49,67 @@ sudo apt-get install supervisor
 
 Создаем конфиг, который будет стартовать и поддерживать нашего бота. Файл должен лежать в директории ```/etc/supervisor/``` и быть с расширением ```conf```
 ```
-vim /etc/supervisor/start_bot.conf
+sudo vim /etc/supervisor/conf.d/start_bot.conf
 ```
 
+###Прописываем сам конфиг
+
+Название скрипта ```[program:my_bot]```
+
+Команда запуска ```command=python script.py```
+
+Пользователь от чьего имени будет запущен скрипт ```user=<user_name>```
+
+Количество процессов, которые нужно стартовать ```numprocs=<num>```
+
+Нужно ли запускать процесс после перезагрузки ```autostart=true```
+
+Нужно ли запускать процесс после падения ```autorestart=true```
+
+Нужно ли перенаправлять вывод ошибок скрипта в вывод supervisor ```redirect_stderr=true```
+
+У меня получился такой конфиг
+```
+[program:my_bot]
+command=/home/hubble_dj/programs/BotTelegram/.env/bin/python3.11 /home/hubble_dj/programs/BotTelegram/main.py
+user=hubble_dj
+numprocs=1
+autostart=true
+autorestart=true
+redirect_stderr=true
+```
+
+
+Запускаем supervisor
+```
+sudo supervisord
+```
+
+Читаем конфиги
+```
+sudo supervisorctl reread
+```
+
+Проверяем статус процессов
+```
+sudo supervisorctl status
+```
+
+Мы должны увидеть наш процесс в одном из статусов ```STOPPED``` или ```RUNNING```
+
+Если статус ```RUNNING``` - радуемся и тестим
+
+Если статус ```STOPPED``` - запукаем процессы
+```
+sudo supervisorctl start all
+```
+
+Если нужно остановить процесс
+```
+sudo supervisorctl stop all
+```
+
+Кст, чтобы перезагрузить сервер пользуемся
+ ```
+sudo shutdown -r now
+```
