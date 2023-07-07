@@ -33,7 +33,7 @@ sudo ssh-copy-id <user_name>@<server_id>
 Коннектимся на сервер под ssh ```ssh <user_name>@<server_ip>```
 
 
-Обновляем пакеты ```sudo apt-get update``` и устанавливаем начальные пакеты для удобной работы ```sudo apt-get install -y vim mosh tmux htop git```
+Обновляем пакеты ```sudo apt-get update``` и устанавливаем начальные пакеты для удобной работы ```sudo apt-get install -y vim mosh tmux htop git supervisor```
 
 Если нам нужно будет подключаться к git - генерируем ssh ключи ```ssh-keygen``` и добавляем публичный ключь на GitHub(ну, или туда, откуда собираемся клонировать проект)
 
@@ -49,8 +49,40 @@ AllowUsers <user_name>
 PermitRootLogin no
 PasswordAuthentication no
 ```
-Если данные параметры ужеиспользуются в конфиге - заменить их на вышеперечисленные
+Если данные параметры уже используются в конфиге - заменяем их на вышеперечисленные
 
+Перезапускаем ssh ```sudo service ssh restart```
+
+Отключаемся от сервера, все так же ```exit``` и подключаемся по mosh ```mosh <user_name>@<server_ip>``` - можно остаться и по ssh, но mosh более стабильный и заодно проверим переподключение после изменение конфига
+
+
+## Установка вторичных библиотек
+Далее, нам нужно сделать терминал более удобным
+
+Установим ```zsh```
+```
+sudo apt-get install -y zsh
+```
+
+Установка ```on-my-zsh```
+```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+```
+
+Сделаем ```zsh``` основной оболочкой
+```
+chsh -s $(which zsh)
+```
+
+### Установим python
+
+Заходим на [сайт python](https://www.python.org/downloads/) и смотрим актуальную версию
+
+И уставливаем ее
+```
+sudo apt install python<num_version>
+```
+ 
 
 
 
